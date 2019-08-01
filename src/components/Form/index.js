@@ -87,7 +87,7 @@ export default function Form(props) {
         <InputMask
           mask="9999 9999 9999 9999"
           maskChar=""
-          type="text"
+          type="tel"
           placeholder="Número do cartão"
           name="CARD_NUMBER"
           value={paymentData.cardNumber || ''}
@@ -126,7 +126,7 @@ export default function Form(props) {
           <InputMask
             mask="99/99"
             maskChar=""
-            type="text"
+            type="tel"
             value={paymentData.cardDate || ''}
             placeholder="Validade"
             name="CARD_DATE"
@@ -146,7 +146,7 @@ export default function Form(props) {
           <InputMask
             mask="999"
             maskChar=""
-            type="text"
+            type="tel"
             placeholder="CVV"
             name="CARD_CVV"
             value={paymentData.cardCvv || ''}
