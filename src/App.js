@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdDone } from 'react-icons/md';
 import InputMask from 'react-input-mask';
 import valid from 'card-validator';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,6 +15,7 @@ function App() {
   const [cardNameValidData, setCardNameValidData] = useState(null);
   const [cardCvvValidData, setCardCvvValidData] = useState(null);
   const [cardInstallmentsValidData, setCardInstallmentsValidData] = useState(null);
+  const [cardBackFace, setCardBackFace] = useState(false);
 
   function changeInput(event) {
     switch (event.target.name) {
@@ -69,25 +70,47 @@ function App() {
               Adicionar um novo <br /> cartão de crédito
             </h1>
           </div>
-          <div className="card card-front">
-            <span className="number">
-              {paymentData.cardNumber ? paymentData.cardNumber : '**** **** **** ****'}
-            </span>
-            <div className="group">
-              <span className="name">
-                {paymentData.cardName ? paymentData.cardName : 'Nome do Titular'}
-              </span>
-              <span className="date">{paymentData.cardDate ? paymentData.cardDate : '00/00'}</span>
+          <div className={`card ${cardBackFace ? 'is-flipped' : ''}`}>
+            <div className="content_card">
+              <div
+                className={`card_face card_front ${cardNumberValidData
+                  && cardNumberValidData.card
+                  && `${cardNumberValidData.card.type} card_filled`}`}
+              >
+                <span className="number">
+                  {paymentData.cardNumber ? paymentData.cardNumber : '**** **** **** ****'}
+                </span>
+                <div className="group">
+                  <span className="name">
+                    {paymentData.cardName ? paymentData.cardName : 'Nome do Titular'}
+                  </span>
+                  <span className="date">
+                    {paymentData.cardDate ? paymentData.cardDate : '00/00'}
+                  </span>
+                </div>
+              </div>
+              <div className="card_face card_back">
+                <span className="cvv">{paymentData.cardCvv ? paymentData.cardCvv : '***'}</span>
+              </div>
             </div>
           </div>
         </aside>
         <div className="content">
           <div className="steps">
-            <p className="step step_one">Carrinho</p>
+            <p className="step step_one active">
+              <i>
+                <MdDone fontSize={20} />
+              </i>
+              Carrinho
+            </p>
             <MdKeyboardArrowRight fontSize={25} />
-            <p className="step step_two">Pagamento</p>
+            <p className="step step_two">
+              <i>2</i>Pagamento
+            </p>
             <MdKeyboardArrowRight fontSize={25} />
-            <p className="step step_three">Confirmaçã</p>
+            <p className="step step_three">
+              <i>3</i>Confirmação
+            </p>
           </div>
           <form className="payment" onSubmit={handleSubmit}>
             <div
@@ -101,14 +124,12 @@ function App() {
                 mask="9999 9999 9999 9999"
                 maskChar=""
                 type="text"
-                placeholder="Número do cartão1"
+                placeholder="Número do cartão"
                 name="CARD_NUMBER"
                 value={paymentData.cardNumber || ''}
                 required
                 onChange={changeInput}
-                onBlur={(event) => {
-                  setCardNumberValidData(valid.number(event.target.value));
-                }}
+                onBlur={event => setCardNumberValidData(valid.number(event.target.value))}
               />
               {cardNumberValidData && !cardNumberValidData.isValid && (
                 <span className="error-info">Número de cartão inválido</span>
@@ -129,9 +150,7 @@ function App() {
                 name="CARD_NAME"
                 required
                 onChange={changeInput}
-                onBlur={(event) => {
-                  setCardNameValidData(event.target.value);
-                }}
+                onBlur={event => setCardNameValidData(event.target.value)}
               />
               {cardNameValidData && cardNameValidData.split(' ').length === 1 && (
                 <span className="error-info">Insira seu nome completo</span>
@@ -155,9 +174,7 @@ function App() {
                   name="CARD_DATE"
                   required
                   onChange={changeInput}
-                  onBlur={(event) => {
-                    setCardDateValidData(valid.expirationDate(event.target.value));
-                  }}
+                  onBlur={event => setCardDateValidData(valid.expirationDate(event.target.value))}
                 />
                 {cardDateValidData && !cardDateValidData.isValid && (
                   <span className="error-info">Data inválida</span>
@@ -180,7 +197,9 @@ function App() {
                   value={paymentData.cardCvv || ''}
                   required
                   onChange={changeInput}
+                  onFocus={() => setCardBackFace(true)}
                   onBlur={(event) => {
+                    setCardBackFace(false);
                     setCardCvvValidData(valid.cvv(event.target.value));
                   }}
                 />
@@ -201,9 +220,7 @@ function App() {
                 required
                 onChange={changeInput}
                 value={paymentData.cardInstallments || ''}
-                onBlur={(event) => {
-                  setCardInstallmentsValidData(event.target.value);
-                }}
+                onBlur={event => setCardInstallmentsValidData(event.target.value)}
               >
                 <option value="" disabled hidden>
                   Número de parcelas
