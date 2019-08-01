@@ -43,7 +43,7 @@ export default function Form(props) {
     if (!formIsValid) {
       notify();
     } else {
-      fetch('/confirmOrder', {
+      fetch('/pagar', {
         method: 'POST',
         body: JSON.stringify(paymentData),
       });
