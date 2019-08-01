@@ -19,10 +19,19 @@ export default function Form(props) {
     cardNumberValidData,
   } = props;
 
+  /**
+   * Notify wrong fom values
+   *
+   */
   function notify() {
     toast.error('Preencha os campos corretamente!');
   }
 
+  /**
+   * Handle form submit
+   *
+   * @param {Object} event
+   */
   function handleSubmit(event) {
     event.preventDefault();
     const formIsValid = (cardNumberValidData && cardNumberValidData.isValid)
@@ -41,6 +50,11 @@ export default function Form(props) {
     }
   }
 
+  /**
+   * Handle input submit
+   *
+   * @param {Object} event
+   */
   function changeInput(event) {
     switch (event.target.name) {
       case 'CARD_NUMBER':
