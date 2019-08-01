@@ -81,9 +81,8 @@ export default function Form(props) {
   return (
     <form className="payment" onSubmit={handleSubmit}>
       <div
-        className={
-          cardNumberValidData && cardNumberValidData.isValid ? 'form-control' : 'form-control error'
-        }
+        className={`form-control ${cardNumberValidData
+          && (cardNumberValidData.isValid ? '' : 'form-control error')}`}
       >
         <InputMask
           mask="9999 9999 9999 9999"
@@ -102,11 +101,8 @@ export default function Form(props) {
       </div>
 
       <div
-        className={
-          cardNameValidData && cardNameValidData.split(' ').length === 1
-            ? 'form-control error'
-            : 'form-control'
-        }
+        className={`form-control ${cardNameValidData
+          && (cardNameValidData.split(' ').length === 1 ? 'form-control error' : '')}`}
       >
         <InputMask
           type="text"
@@ -124,9 +120,8 @@ export default function Form(props) {
 
       <div className="input-group">
         <div
-          className={
-            cardDateValidData && cardDateValidData.isValid ? 'form-control' : 'form-control error'
-          }
+          className={`form-control ${cardDateValidData
+            && (cardDateValidData.isValid ? '' : 'form-control error')}`}
         >
           <InputMask
             mask="99/99"
@@ -145,9 +140,8 @@ export default function Form(props) {
         </div>
 
         <div
-          className={
-            cardCvvValidData && cardCvvValidData.isValid ? 'form-control' : 'form-control error'
-          }
+          className={`form-control ${cardCvvValidData
+            && (cardCvvValidData.isValid ? '' : 'form-control error')}`}
         >
           <InputMask
             mask="999"
@@ -171,9 +165,11 @@ export default function Form(props) {
       </div>
 
       <div
-        className={
-          cardCvvValidData && cardCvvValidData.isValid ? 'form-control' : 'form-control error'
-        }
+        className={`form-control ${
+          cardInstallmentsValidData === null || cardInstallmentsValidData
+            ? ''
+            : 'form-control error'
+        }`}
       >
         <select
           placeholder="Número de parcelas"
