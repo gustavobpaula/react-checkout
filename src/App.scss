@@ -1,6 +1,6 @@
-@import "./variables";
+@import "./helpers/variables";
 
-@import "./breakpoints";
+@import "./helpers/breakpoints";
 
 .checkout {
   background-color: $white;
@@ -56,110 +56,20 @@
         min-width: 50px;
       }
     }
-
-    .card {
-      bottom: 180px;
-      height: 240px;
-      position: absolute;
-      transform-style: preserve-3d;
-      transition: transform 1s;
-      width: 365px;
-
-      @include breakpoint(desktop-up) {
-        bottom: 155px;
-      }
-
-      &.is-flipped {
-        transform: rotateY(180deg);
-      }
-
-      .number {
-        font-size: 24px;
-        letter-spacing: 3px;
-        margin-bottom: 30px;
-      }
-
-      .group {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 50px;
-        text-transform: uppercase;
-        width: 100%;
-      }
-    }
-
-    .card_face {
-      align-items: center;
-      backface-visibility: hidden;
-      background-repeat: no-repeat;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      justify-content: flex-end;
-      position: absolute;
-      text-shadow: 1px 1px 2px #000;
-      width: 100%;
-    }
-
-    .card_front {
-      background-image: url("./images/card.png");
-
-      &.card_filled {
-        background-image: url("./images/card-filled.png");
-      }
-
-      &:before {
-        content: "";
-        display: none;
-        height: 70px;
-        left: 40px;
-        position: absolute;
-        top: 20px;
-        width: 70px;
-      }
-
-      &.mastercard:before {
-        background-image: url("./images/mastercard-icon.png");
-        display: block;
-      }
-
-      &.visa:before {
-        background-image: url("./images/visa-icon.png");
-        display: block;
-      }
-    }
-
-    .card_back {
-      background-image: url("./images/card-back.png");
-      transform: rotateY(180deg);
-    }
-
-    .content_card {
-      height: 100%;
-      position: relative;
-      width: 100%;
-
-      .cvv {
-        color: #000;
-        font-size: 13px;
-        left: 184px;
-        position: absolute;
-        text-shadow: none;
-        top: 111px;
-      }
-    }
   }
 
   .content {
     display: flex;
     flex-direction: column;
     max-width: 440px;
-    padding-top: 50px;
-    width: 100%;
+    padding: 50px 5%;
+    width: 90%;
 
     @include breakpoint(desktop-up) {
       padding-left: 168px;
       padding-right: 62px;
+      padding-top: 50px;
+      width: 100%;
     }
 
     .steps {
@@ -191,77 +101,6 @@
         background-color: $red;
         color: $white;
       }
-    }
-
-    select,
-    input {
-      border: 0;
-      border-bottom: 1px solid $gray_d;
-      color: $gray_d;
-      font-size: 17px;
-      margin: 30px 0;
-      padding: 10px 0px 5px 0px;
-      width: 100%;
-
-      &::placeholder {
-        color: $gray_l;
-      }
-    }
-
-    select {
-      color: $gray_d;
-    }
-
-    .input-group {
-      display: flex;
-      justify-content: space-between;
-
-      input {
-        max-width: 47%;
-      }
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-
-      button {
-        align-self: flex-end;
-        background-color: $red;
-        border: 1px solid $red;
-        border-radius: 10px;
-        color: $white;
-        cursor: pointer;
-        font-size: 17px;
-        padding: 15px 70px;
-        text-transform: uppercase;
-        transition: background-color .3s ease, color .3s ease;
-      }
-
-      button:hover {
-        background-color: $white;
-        color: $red;
-      }
-    }
-  }
-
-  .form-control {
-    position: relative;
-  }
-
-  .error {
-
-    input,
-    select {
-      border-color: $red;
-    }
-
-    &-info {
-      bottom: 10px;
-      color: $red;
-      font-size: 13px;
-      left: 0;
-      position: absolute;
     }
   }
 }
